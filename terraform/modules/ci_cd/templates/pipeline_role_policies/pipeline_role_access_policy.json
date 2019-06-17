@@ -1,0 +1,39 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:*"
+      ],
+      "Resource": [
+        "${ArtifactsS3Bucket}",
+        "${ArtifactsS3Bucket}/*",
+        "${CachesS3Bucket}",
+        "${CachesS3Bucket}/*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "codebuild:BatchGetBuilds",
+        "codebuild:StartBuild"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "CodeCommitAllowAllOn",
+      "Effect": "Allow",
+      "Action": [
+        "codecommit:*"
+      ],
+      "Resource": "${CodeCommitRepo}"
+    },
+    {
+      "Sid": "CodeCommitList",
+      "Effect": "Allow",
+      "Action": "codecommit:ListRepositories",
+      "Resource": "*"
+    }
+  ]
+}
