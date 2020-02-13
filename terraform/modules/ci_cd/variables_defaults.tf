@@ -9,6 +9,6 @@ variable "AWS_REGION" {}
 
 # default tags for every created resource
 variable "DEFAULT_TAGS" {
-  type    = "map"
+  type    = map
   default = {}
 }

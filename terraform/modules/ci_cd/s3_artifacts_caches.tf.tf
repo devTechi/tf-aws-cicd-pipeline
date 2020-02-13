@@ -4,7 +4,7 @@
 resource "aws_s3_bucket" "tf-cicd-aws-codepipeline-artifact-store" {
   bucket = "${var.cicd_pipeline_s3_artifact_storename_prefix}-${var.ACTUAL_STAGE}"
   acl    = "private"
-  region = "${var.AWS_REGION}"
+  region = var.AWS_REGION
 
   versioning {
     enabled = false
@@ -34,12 +34,10 @@ resource "aws_s3_bucket" "tf-cicd-aws-codepipeline-artifact-store" {
     }
   }
 
-  tags = "${
-      merge(
-          map("Name", "${var.cicd_pipeline_s3_artifact_storename_prefix}-${var.ACTUAL_STAGE}"),
-          var.DEFAULT_TAGS
-      )
-  }"
+  tags = merge(
+    map("Name", "${var.cicd_pipeline_s3_artifact_storename_prefix}-${var.ACTUAL_STAGE}"),
+    var.DEFAULT_TAGS
+  )
 }
 
 ################################################################
@@ -48,7 +46,7 @@ resource "aws_s3_bucket" "tf-cicd-aws-codepipeline-artifact-store" {
 resource "aws_s3_bucket" "tf-cicd-aws-codepipeline-cache" {
   bucket = "${var.cicd_pipeline_s3_cache_name_prefix}-${var.ACTUAL_STAGE}"
   acl    = "private"
-  region = "${var.AWS_REGION}"
+  region = var.AWS_REGION
 
   versioning {
     enabled = false
@@ -78,10 +76,8 @@ resource "aws_s3_bucket" "tf-cicd-aws-codepipeline-cache" {
     }
   }
 
-  tags = "${
-      merge(
-          map("Name", "${var.cicd_pipeline_s3_cache_name_prefix}-${var.ACTUAL_STAGE}"),
-          var.DEFAULT_TAGS
-      )
-  }"
+  tags = merge(
+    map("Name", "${var.cicd_pipeline_s3_cache_name_prefix}-${var.ACTUAL_STAGE}"),
+    var.DEFAULT_TAGS
+  )
 }

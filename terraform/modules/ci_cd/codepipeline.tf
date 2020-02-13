@@ -1,9 +1,9 @@
 resource "aws_codepipeline" "tf-cicd-aws-resources" {
   name     = "${var.cicd_pipeline_name}-${var.ACTUAL_STAGE}"
-  role_arn = "${aws_iam_role.tf-cicd-pipeline-role.arn}"
+  role_arn = aws_iam_role.tf-cicd-pipeline-role.arn
 
   artifact_store {
-    location = "${aws_s3_bucket.tf-cicd-aws-codepipeline-artifact-store.bucket}"
+    location = aws_s3_bucket.tf-cicd-aws-codepipeline-artifact-store.bucket
     type     = "S3"
 
     # encryption_key
@@ -26,8 +26,8 @@ resource "aws_codepipeline" "tf-cicd-aws-resources" {
 
       output_artifacts = ["SourceArtifacts"]
 
-      configuration {
-        RepositoryName = "${aws_codecommit_repository.tf-cicd-aws-resources.repository_name}"
+      configuration = {
+        RepositoryName = aws_codecommit_repository.tf-cicd-aws-resources.repository_name
         BranchName     = "master"
       }
     }
@@ -47,8 +47,8 @@ resource "aws_codepipeline" "tf-cicd-aws-resources" {
       input_artifacts  = ["SourceArtifacts"]
       output_artifacts = ["PlanArtifacts"]
 
-      configuration {
-        ProjectName = "${aws_codebuild_project.tf-plan-cicd-manage-aws-resources.name}"
+      configuration = {
+        ProjectName = aws_codebuild_project.tf-plan-cicd-manage-aws-resources.name
       }
     }
 
@@ -77,8 +77,8 @@ resource "aws_codepipeline" "tf-cicd-aws-resources" {
       input_artifacts  = ["PlanArtifacts"]
       output_artifacts = ["ApplyArtifacts"]
 
-      configuration {
-        ProjectName = "${aws_codebuild_project.tf-apply-cicd-manage-aws-resources.name}"
+      configuration = {
+        ProjectName = aws_codebuild_project.tf-apply-cicd-manage-aws-resources.name
 
         # PrimarySource = "SourceArtifacts"
       }
