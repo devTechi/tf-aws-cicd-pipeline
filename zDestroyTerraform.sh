@@ -20,16 +20,7 @@ terraform init -backend-config="region=$REGION" \
   -backend-config="bucket=$STATE_BUCKET_NAME" \
   -backend-config="key=$PROJECTNAME/$PROJECTNAME-$STAGE.tfstate" ./terraform/
 
-# Plan the changes
-terraform plan \
-  -var AWS_REGION="$REGION" \
-  -var ACTUAL_STAGE="$STAGE" \
-  ./terraform/
-
-# exit 0
-# Apply the changes and ask to do so
-terraform apply \
-  -input=false \
+terraform destroy \
   -var AWS_REGION="$REGION" \
   -var ACTUAL_STAGE="$STAGE" \
   ./terraform/
