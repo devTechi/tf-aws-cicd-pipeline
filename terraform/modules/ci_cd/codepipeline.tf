@@ -15,7 +15,7 @@ resource "aws_codepipeline" "tf-cicd-aws-resources" {
 
   # see: https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#action-requirements
   stage {
-    name = "Get-the-tf-sources"
+    name = "Get-Terraform-sources"
 
     action {
       name     = "Terraform-Source"
